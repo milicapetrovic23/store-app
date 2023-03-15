@@ -25,9 +25,8 @@ export const LatestPurchaces = () => {
         handleGetCustomer();
     }, [id]);
 
-    const handleGetProducts = () => {
-        const prod = ProductsService.getAll()
-        console.log(prod)
+    function handleGetProducts() {
+        const prod = ProductsService.getPurchace(customer.username)
         setProducts(prod)
     }
 
@@ -39,7 +38,7 @@ export const LatestPurchaces = () => {
 
     return (
         <div>
-            <SingleCustomerDetails customer={customer} index={customer.id}/>
+            <SingleCustomerDetails customer={customer} index={customer.username}/>
             <ProductsList products={products}/></div>
     )
 }

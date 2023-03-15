@@ -1,8 +1,9 @@
 export const ProductsList = ({products}) => {
+    
     return (
         <ul>
-            {products.map((product) => (
-                <li key={product.id}>{product.name}</li>
+            {products.map((product, index) => (
+                <li key={index}>{product.name}</li>
             ))}
         </ul>
     )

@@ -2,20 +2,20 @@ class CustomerService {
   constructor() {
     this.customers = [
       {
-        id: 1,
+        username: 1,
         firstName: "John",
-        lastName: "Doe",
+        lastName: "Doe"
       },
       {
-        id: 2,
+        username: 2,
         firstName: "Jenna",
-        lastName: "Doo",
+        lastName: "Doo"
       },
       {
-        id: 3,
+        username: 3,
         firstName: "Jonna",
-        lastName: "Dooe",
-      },
+        lastName: "Dooe"
+      }
     ];
   }
 
@@ -23,14 +23,14 @@ class CustomerService {
     return this.customers;
   }
 
-  get(id) {
-    const customer = this.customers.find((customer) => customer.id == id)
+  get(username) {
+    const customer = this.customers.find((customer) => customer.username == username)
     return customer
   }
 
-  removeCustomer(id) {
+  removeCustomer(username) {
     const newCustomers = this.customers.filter(
-      (customer) => customer.id !== id
+      (customer) => customer.username !== username
     );
     this.customers = newCustomers;
   }

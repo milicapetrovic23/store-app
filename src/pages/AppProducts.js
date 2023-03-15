@@ -7,7 +7,6 @@ export const AppProducts = () => {
 
     const handleGetProducts = () => {
         const prod = ProductsService.getAll()
-        console.log(prod)
         setProducts(prod)
     }
 

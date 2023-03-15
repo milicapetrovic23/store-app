@@ -6,15 +6,15 @@ import { SingleCustomerDetails } from "../components/SingleCustomerDetails";
 export const AppCustomers = () => {
   const [customers, setCustomers] = useState(CustomerService.getAll());
 
-  const handleRemoveCustomer = (id) => {
-    setCustomers(customers.filter((customer) => customer.id !== id));
-    CustomerService.removeCustomer(id);
+  const handleRemoveCustomer = (username) => {
+    setCustomers(customers.filter((customer) => customer.username !== username));
+    CustomerService.removeCustomer(username);
   };
 
   const [newCustomer, setNewCustomer] = useState({
     firstName: "",
     lastName: "",
-    id: "",
+    username: "",
   });
 
   const handleFNameChange = (e) => {
@@ -25,25 +25,27 @@ export const AppCustomers = () => {
     setNewCustomer({ ...newCustomer, lastName: e.target.value });
   };
 
-  const handleIdChange = (e) => {
-    setNewCustomer({ ...newCustomer, id: e.target.value });
+  const handleUsernameChange = (e) => {
+    if((customers.find((customer)=> customer.username === e.target.value)) === undefined) {
+    setNewCustomer({ ...newCustomer, username: e.target.value })}
   };
 
   const addCustomer = (e) => {
     e.preventDefault();
+    if(newCustomer.username != "") {
     setCustomers([...customers, newCustomer]);
     CustomerService.addCustomer(newCustomer);
     setNewCustomer({
       firstName: "",
       lastName: "",
-      id: "",
+      username: "",
     });
-  };
+  }};
 
   const history = useHistory();
 
-  const showPurchaces = (id) => {
-    history.push(`/customers/${id}`)
+  const showPurchaces = (username) => {
+    history.push(`/customers/${username}`)
   }
 
   return (
@@ -52,11 +54,11 @@ export const AppCustomers = () => {
       <ul>
         {customers.map((customer, index) => (
           <li key={index}>
-            <SingleCustomerDetails customer={customer} index={customer.id} />
-            <button onClick={() => showPurchaces(customer.id)}>
+            <SingleCustomerDetails customer={customer} index={customer.username} />
+            <button onClick={() => showPurchaces(customer.username)}>
             Latest Purchaces
             </button>
-            <button onClick={() => handleRemoveCustomer(customer.id)}>
+            <button onClick={() => handleRemoveCustomer(customer.username)}>
               Remove customer
             </button>
           </li>
@@ -78,8 +80,8 @@ export const AppCustomers = () => {
         <label>Username</label>
         <input
           type="text"
-          value={newCustomer.id}
-          onChange={handleIdChange}
+          value={newCustomer.username}
+          onChange={handleUsernameChange}
         ></input>
         <button type="submit">Add customer</button>
       </form>
